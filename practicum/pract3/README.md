@@ -3,8 +3,8 @@
 
 1. ##### Flow of air in a heat exchanger
 
-[Pressure](pressure.png)
+![Pressure](pressure.png)
 
-[Velocity](velocity.png)
+![Velocity](velocity.png)
 
-[Temperature](temperature.png)
+![Temperature](temperature.png)
