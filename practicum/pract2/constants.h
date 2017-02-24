@@ -1,6 +1,6 @@
-#define NPI        130        /* number of grid cells in x-direction [-] */
-#define NPJ        130        /* number of grid cells in y-direction [-] */
-#define XMAX       1.         /* width of the domain [m] */ 
+#define NPI        66        /* number of grid cells in x-direction [-] */
+#define NPJ        66       /* number of grid cells in y-direction [-] */
+#define XMAX       1.         /* width of the domain [m] */
 #define YMAX       1.         /* length of the domain [m] */
 #define PI         3.1415927
 #define T_ITER     100
