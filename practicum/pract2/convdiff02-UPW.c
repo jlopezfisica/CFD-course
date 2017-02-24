@@ -113,8 +113,8 @@ void init(void)
 		for (J = 0; J <= NPI + 1; J++) {
 			j = J;
 
-			u    [i][J] = 3.;    /* Velocity in x-direction */
-			v    [I][j] = 12.;    /* Velocity in y-direction */
+			u    [i][J] = 1.;    /* Velocity in x-direction */
+			v    [I][j] = 4.;    /* Velocity in y-direction */
 			T    [I][J] = 0.;    /* Temperature */
 			rho  [I][J] = 1.;    /* Density */
 			mu   [I][J] = 0.;    /* Turbulent viscosity ( = 10*mu_laminar) */
@@ -165,7 +165,7 @@ void output(void)
 	int	I, J;
 	FILE *fp;
 
-	fp = fopen("output.dat", "w");
+	fp = fopen("output-UPW.dat", "w");
 
 	for (I = 1; I <= NPI; I++) {
 		for (J = 1; J <= NPJ; J++)
@@ -270,10 +270,10 @@ void Tcoeff(double **aE, double **aW, double **aN, double **aS, double **aP, dou
 
 			/* The coefficients (central differencing sheme) */
 
-			aW[I][J] = Dw + Fw/2;
-			aE[I][J] = De - Fe/2;
-			aS[I][J] = Ds + Fs/2;
-			aN[I][J] = Dn - Fn/2;
+			aW[I][J] = Dw + max2(Fw, 0);
+			aE[I][J] = De + max2(- Fe, 0);
+			aS[I][J] = Ds + max2(Fs, 0);
+			aN[I][J] = Dn + max2(- Fn, 0);
 
 			/* eq. 8.31 without time dependent terms (see also eq. 5.14): */
 

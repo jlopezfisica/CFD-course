@@ -113,12 +113,13 @@ void init(void)
 		for (J = 0; J <= NPI + 1; J++) {
 			j = J;
 
-			u    [i][J] = 3.;    /* Velocity in x-direction */
-			v    [I][j] = 12.;    /* Velocity in y-direction */
+			u    [i][J] = 1.;    /* Velocity in x-direction */
+			v    [I][j] = 4.;    /* Velocity in y-direction */
 			T    [I][J] = 0.;    /* Temperature */
 			rho  [I][J] = 1.;    /* Density */
 			mu   [I][J] = 0.;    /* Turbulent viscosity ( = 10*mu_laminar) */
 			Gamma[I][J] = 1.;    /* Thermal conductivity */
+            /* Gamma is one*/
 			Cp   [I][J] = 1.;    /* J/(K*kg) Heat capacity - assumed constant for this problem */
 		} /* for J */
 	} /* for I */
@@ -165,7 +166,7 @@ void output(void)
 	int	I, J;
 	FILE *fp;
 
-	fp = fopen("output.dat", "w");
+	fp = fopen("output-HYB.dat", "w");
 
 	for (I = 1; I <= NPI; I++) {
 		for (J = 1; J <= NPJ; J++)
@@ -270,10 +271,10 @@ void Tcoeff(double **aE, double **aW, double **aN, double **aS, double **aP, dou
 
 			/* The coefficients (central differencing sheme) */
 
-			aW[I][J] = Dw + Fw/2;
-			aE[I][J] = De - Fe/2;
-			aS[I][J] = Ds + Fs/2;
-			aN[I][J] = Dn - Fn/2;
+			aW[I][J] =  max3(Fw, (Dw + Fw/2), 0);
+			aE[I][J] =  max3(- Fe, (De - Fe/2), 0);
+			aS[I][J] =  max3(Fs, (Ds + Fs/2), 0);
+			aN[I][J] =  max3(- Fn, (Dn - Fn/2), 0);
 
 			/* eq. 8.31 without time dependent terms (see also eq. 5.14): */
 
